@@ -1,0 +1,16 @@
+package com.techlab.kafkaretrydlq.web;
+
+import com.techlab.kafkaretrydlq.domain.FailureMode;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
+public record CreateOrderEventRequest(
+        @NotBlank String orderId,
+        @NotBlank @Email String customerEmail,
+        @NotNull @DecimalMin(value = "0.01") BigDecimal totalAmount,
+        @NotNull FailureMode failureMode
+) {
+}

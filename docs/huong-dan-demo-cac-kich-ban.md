@@ -59,7 +59,7 @@ Tài liệu này mô tả **các case demo đủ dùng** (không dàn trải), m
 
 ---
 
-## D. `kafka-retry-dlq` — Retry và Dead Letter Queue
+## D. `order-kafka-retry-dlq` — Retry và Dead Letter Queue
 
 | Mục đích | Demo **lỗi tạm thời vs lỗi không hồi phục**; không mất message. |
 | Điều thấy được | Retry với backoff; sau hết lần thử → message sang **DLQ** để xử lý tay. |
@@ -137,7 +137,7 @@ docker compose down -v
 | Scenario / nhóm | Docker | H2 (khi có DB) |
 |-----------------|--------|----------------|
 | redis-rate-limit | Redis | — |
-| mail-kafka-batch, kafka-retry-dlq | Kafka | Tuỳ (thường không bắt buộc DB cho demo tối thiểu) |
+| mail-kafka-batch, order-kafka-retry-dlq | Kafka | Tuỳ (thường không bắt buộc DB cho demo tối thiểu) |
 | multi-tenant-db | Tuỳ | **Ưu tiên** cho demo máy sạch |
 | notification-system | Kafka + Redis | Tuỳ |
 

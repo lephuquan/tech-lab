@@ -26,7 +26,7 @@ tech-lab/
 │  │  ├─ mail-kafka-batch/
 │  │  ├─ redis-rate-limit/
 │  │  ├─ multi-tenant-db/
-│  │  ├─ kafka-retry-dlq/
+│  │  ├─ order-kafka-retry-dlq/
 │  │  └─ notification-system/
 │  │
 │  ├─ shared-libs/                      # thu vien tai su dung (phase sau mo rong)
@@ -92,7 +92,7 @@ tech-lab/
      - `./mvnw spring-boot:run`
 
 2. **Moi scenario chi giai 1-2 bai toan ro rang**
-   - Tot: `redis-rate-limit`, `kafka-retry-dlq`
+   - Tot: `redis-rate-limit`, `order-kafka-retry-dlq`
    - Khong tot: `redis-all-in-one`, `kafka-everything`
 
 3. **Dat ten co nghia theo bai toan**
