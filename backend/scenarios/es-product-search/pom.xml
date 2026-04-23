@@ -2,8 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Maven model version chuẩn cho dự án Java hiện đại -->
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+      Parent của Spring Boot:
+      - Tự quản lý version phụ thuộc phổ biến (dependency management)
+      - Cấu hình sẵn plugin build thường dùng
+      => Giúp pom gọn hơn và tránh conflict version thủ công.
+    -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -11,6 +18,7 @@
         <relativePath/>
     </parent>
 
+    <!-- Thông tin định danh artifact nội bộ của scenario -->
     <groupId>com.techlab</groupId>
     <artifactId>es-product-search</artifactId>
     <version>1.0.0-SNAPSHOT</version>
@@ -18,36 +26,44 @@
     <description>Elasticsearch product search demo scenario</description>
 
     <properties>
+        <!-- Chuẩn Java thống nhất toàn repo -->
         <java.version>17</java.version>
     </properties>
 
     <dependencies>
+        <!-- Cung cấp REST API (Controller, JSON serialization, embedded Tomcat) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- Validate request đầu vào bằng annotation: @NotBlank, @Min... -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!-- Tích hợp Elasticsearch qua Spring Data (repository/operations/query DSL) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
+        <!-- Endpoint vận hành: /actuator/health, /actuator/info -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Bộ test chuẩn Spring Boot (JUnit 5, AssertJ, MockMvc...) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <!-- Chỉ dùng khi chạy test, không đóng gói vào artifact runtime -->
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Plugin hỗ trợ đóng gói/chạy ứng dụng Spring Boot bằng Maven -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

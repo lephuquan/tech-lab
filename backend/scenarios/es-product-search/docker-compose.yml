@@ -1,32 +1,48 @@
+# File này dựng hạ tầng tối thiểu cho demo Elasticsearch:
+# - Elasticsearch: nơi lưu index + chạy truy vấn search
+# - Kibana: UI để quan sát dữ liệu/index và thử query nhanh
 services:
+  # Service chính: Elasticsearch node đơn cho môi trường local/demo
   elasticsearch:
+    # Chọn version cố định để tránh sai khác hành vi theo từng lần pull image
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     container_name: es-product-search-elasticsearch
     environment:
+      # Chạy 1 node duy nhất (không clustering) để setup nhẹ và đơn giản
       - discovery.type=single-node
+      # Tắt security để demo local không cần auth/certificate
       - xpack.security.enabled=false
       - xpack.security.enrollment.enabled=false
+      # Giới hạn RAM JVM cho Elasticsearch trong máy dev
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ports:
+      # Mở cổng Elasticsearch ra máy host: localhost:9200
       - "9200:9200"
     volumes:
+      # Gắn volume để dữ liệu index không mất khi restart container
       - es_data:/usr/share/elasticsearch/data
     healthcheck:
+      # Chỉ báo healthy khi cluster health endpoint trả về thành công
       test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health || exit 1"]
       interval: 10s
       timeout: 10s
       retries: 20
 
+  # Kibana dùng để xem index, document, và thử query trực quan
   kibana:
     image: docker.elastic.co/kibana/kibana:8.13.4
     container_name: es-product-search-kibana
     depends_on:
       elasticsearch:
+        # Chỉ khởi động Kibana sau khi Elasticsearch đạt trạng thái healthy
         condition: service_healthy
     environment:
+      # Trong mạng docker compose, dùng hostname service "elasticsearch"
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
+      # Mở Kibana UI tại localhost:5601
       - "5601:5601"
 
 volumes:
+  # Named volume lưu dữ liệu bền vững cho Elasticsearch
   es_data:
