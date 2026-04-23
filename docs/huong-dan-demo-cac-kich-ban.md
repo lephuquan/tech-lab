@@ -122,7 +122,30 @@ Tài liệu này mô tả **các case demo đủ dùng** (không dàn trải), m
 
 ---
 
-## H. Dọn dẹch sau demo
+## H. `es-product-search` — Full-text search + filter + suggest
+
+| Mục đích | Demo Elasticsearch cho bài toán tìm kiếm sản phẩm gần thực tế. |
+| Điều thấy được | Relevance theo keyword, lọc theo thuộc tính, và gợi ý prefix. |
+
+**Bước**
+
+1. `docker compose up -d` trong `backend/scenarios/es-product-search` (Elasticsearch + Kibana).
+2. Chạy app: `mvn spring-boot:run`.
+3. Seed dữ liệu: `POST /api/products/reindex-sample`.
+4. Chạy query:
+   - `GET /api/products/search?keyword=iphone`
+   - `GET /api/products/search?keyword=laptop&minPrice=30000000&inStockOnly=true`
+   - `GET /api/products/suggest?prefix=son&limit=5`
+
+**Case con**
+
+- **I1 — Search keyword**: Thấy score và thứ tự relevance.
+- **I2 — Search + filter**: Kết hợp full-text với điều kiện nghiệp vụ.
+- **I3 — Suggest prefix**: Trải nghiệm autocomplete cơ bản.
+
+---
+
+## I. Dọn dẹch sau demo
 
 ```bash
 docker compose down
@@ -138,6 +161,7 @@ docker compose down -v
 |-----------------|--------|----------------|
 | redis-rate-limit | Redis | — |
 | mail-kafka-batch, order-kafka-retry-dlq | Kafka | Tuỳ (thường không bắt buộc DB cho demo tối thiểu) |
+| es-product-search | Elasticsearch (+ Kibana) | — |
 | multi-tenant-db | Tuỳ | **Ưu tiên** cho demo máy sạch |
 | notification-system | Kafka + Redis | Tuỳ |
 

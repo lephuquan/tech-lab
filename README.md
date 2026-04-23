@@ -26,6 +26,7 @@ tech-lab/
 │  │  ├─ mail-kafka-batch/
 │  │  ├─ redis-rate-limit/
 │  │  ├─ multi-tenant-db/
+│  │  ├─ es-product-search/
 │  │  ├─ order-kafka-retry-dlq/
 │  │  └─ notification-system/
 │  │
@@ -68,7 +69,7 @@ tech-lab/
 - `playground`: cho phep thu nghiem nhanh ma khong lam ban cau truc chinh.
 
 ### Scenario-based la diem an tien
-- Doi ten demo theo bai toan thuc te: `mail-kafka-batch`, `redis-rate-limit`, ...
+- Doi ten demo theo bai toan thuc te: `mail-kafka-batch`, `redis-rate-limit`, `es-product-search`, ...
 - Recruiter/co-worker nhin folder ten la hieu van de dang giai.
 - Moi scenario la mot "system nho" co API + storage + message flow rieng.
 
@@ -92,7 +93,7 @@ tech-lab/
      - `./mvnw spring-boot:run`
 
 2. **Moi scenario chi giai 1-2 bai toan ro rang**
-   - Tot: `redis-rate-limit`, `order-kafka-retry-dlq`
+   - Tot: `redis-rate-limit`, `order-kafka-retry-dlq`, `es-product-search`
    - Khong tot: `redis-all-in-one`, `kafka-everything`
 
 3. **Dat ten co nghia theo bai toan**
